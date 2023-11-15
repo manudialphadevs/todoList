@@ -32,14 +32,16 @@ const Pending = () => {
       const storedTasks = await AsyncStorage.getItem('tasks');
       if (storedTasks !== null) {
         setTasks(JSON.parse(storedTasks));
+      } else {
+        console.log('empty');
       }
     } catch (error) {
       console.error('Error retrieving tasks: ', error);
     }
   };
   const filteredTasks = tasks.filter(task => task.status === true);
-  const filteredTasksd = tasks.filter(task => task.dueDate <currentDate);
-  console.log("filters",filteredTasksd)
+  const filteredTasksd = tasks.filter(task => task.dueDate < currentDate);
+  console.log('filters', filteredTasksd);
 
   const handleCompleted = index => {
     const updatedTasks = [...tasks];
@@ -54,17 +56,19 @@ const Pending = () => {
 
   const removeValue = async () => {
     try {
-      await AsyncStorage.removeItem('tasks')
-    } catch(e) {
+      await AsyncStorage.removeItem('tasks');
+    } catch (e) {
       // remove error
     }
-  
-    console.log('Done.')
-  }
+    console.log('Done.');
+  };
   return (
     <>
       <View style={{ alignItems: 'center' }}>
-        <Text>today:{currentDate}</Text>
+        <Text >today:{currentDate}</Text>
+        {filteredTasks.length === 0 ? 
+        <Text style={styles.textMsg}>No items to display. Please press “Add” to add new items.”</Text> 
+        : 
         <FlatList
           keyExtractor={item => item.Description}
           data={filteredTasks}
@@ -91,6 +95,7 @@ const Pending = () => {
             </View>
           )}
         />
+          }
       </View>
     </>
   );
@@ -124,6 +129,13 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     textAlign: 'center',
     paddingTop: 20,
+  },
+  textMsg:{
+    color: 'red',
+    fontWeight: 800,
+    fontSize: 15, 
+    padding:80,
+    textAlign:'center'
   },
   input: {
     color: 'white',

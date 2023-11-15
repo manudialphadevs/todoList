@@ -27,7 +27,7 @@ const NewTask = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
-    const newTask = {
+    const newTask = {  
       title: Title,
       description: Description,
       dueDate: DueDate,
