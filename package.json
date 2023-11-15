@@ -1,0 +1,59 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  },
+  "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "^1.19.5",
+    "@react-native-community/datetimepicker": "7.2.0",
+    "@react-navigation/material-top-tabs": "^6.6.5",
+    "@react-navigation/native-stack": "^6.9.17",
+    "expo": "~49.0.15",
+    "expo-device": "~5.4.0",
+    "expo-notifications": "~0.20.1",
+    "expo-status-bar": "~1.6.0",
+    "native-notify": "^3.2.4",
+    "path": "^0.12.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-date-picker": "^4.3.3",
+    "react-native-fs": "^2.20.0",
+    "react-native-modal": "^13.0.1",
+    "react-native-pager-view": "6.2.0",
+    "react-native-paper": "^5.11.1",
+    "react-native-popup-dialog": "^0.18.3",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-tab-view": "^3.5.2",
+    "react-native-vector-icons": "^10.0.2",
+    "react-native-web": "~0.19.6",
+    "react-navigation": "^5.0.0"
+  },
+  "resolve": {
+    "mainFields": [
+      "browser",
+      "main",
+      "module"
+    ],
+    "extensions": [
+      ".js",
+      ".json",
+      ".jsx"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
