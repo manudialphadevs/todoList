@@ -85,7 +85,7 @@ const Hi = ({navigation}) =>{
     },
     heading:{
       fontSize:25,
-      fontWeight:700,
+      // fontWeight:700,
       textAlign:'center',
       paddingTop:20
     },
@@ -99,7 +99,7 @@ const Hi = ({navigation}) =>{
     inputText:{
       fontSize:18,
       paddingTop:20,
-      fontWeight:400,
+      // fontWeight:400,
       marginLeft:15,
   
     },

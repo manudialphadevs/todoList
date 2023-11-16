@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -91,52 +91,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontWeight: 800,
+    // fontWeight: 800,
     fontSize: 15,
-  },
-  text: {
-    color: 'black',
-    fontWeight: 800,
-    fontSize: 15,
-  },
-  heading: {
-    fontSize: 25,
-    fontWeight: 700,
-    textAlign: 'center',
-    paddingTop: 20,
-  },
-  input: {
-    color: 'white',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderRadius: 6,
-    padding: 10,
-  },
-  inputText: {
-    fontSize: 18,
-    paddingTop: 20,
-    fontWeight: 400,
-    marginLeft: 15,
-  },
-  Btn: {
-    padding: 10,
-    backgroundColor: '#3F51B5',
-    marginTop: 40,
-    width: 100,
   },
   btnView: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  icon: {
-    fontSize: 19,
-  },
-  btnTextStyle: {
-    color: '#ffffff',
-    fontSize: 12,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-  },
+  }
 });
 export default Completed;

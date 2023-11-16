@@ -6,17 +6,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Pending = () => {
   const [tasks, setTasks] = useState([]);
   const [currentDate, setcurrentDate] = useState('');
-  // const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // const wait = timeout => {
-  //   // Defined the timeout function for testing purpose
-  //   return new Promise(resolve => setTimeout(resolve, timeout));
-  // };
+  const wait = timeout => {
+    // Defined the timeout function for testing purpose
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
 
-  // const onRefresh = useCallback(() => {
-  //   setIsRefreshing(true);
-  //   wait(2000).then(() => setIsRefreshing(false));
-  // }, []);
+  const onRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    wait(2000).then(() => setIsRefreshing(false));
+  }, []);
 
   useEffect(() => {
     var date = new Date().getDate();
@@ -24,15 +24,13 @@ const Pending = () => {
     var year = new Date().getFullYear();
     setcurrentDate(date + '/' + month + '/' + year);
     retrieveTasksFromStorage();
-  }, []);
+  }, [filteredTasks]);
 
   const retrieveTasksFromStorage = async () => {
     try {
       const storedTasks = await AsyncStorage.getItem('tasks');
       if (storedTasks !== null) {
         setTasks(JSON.parse(storedTasks));
-      } else {
-        console.log('empty');
       }
     } catch (error) {
       console.error('Error retrieving tasks: ', error);
@@ -71,8 +69,8 @@ const Pending = () => {
         <FlatList
           keyExtractor={item => item.Description}
           data={filteredTasks}
-          // refreshing={isRefreshing}
-          // onRefresh={onRefresh}
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
           renderItem={({ item, index }) => (
             <View style={styles.tab}>
               <View>
@@ -100,9 +98,6 @@ const Pending = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-  },
   tab: {
     marginTop: 20,
     backgroundColor: 'white',
@@ -115,41 +110,18 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontWeight: 800,
+    // fontWeight: 800,
     fontSize: 15,
   },
-  text: {
-    color: 'black',
-    fontWeight: 800,
-    fontSize: 15,
-  },
-  heading: {
-    fontSize: 25,
-    fontWeight: 700,
-    textAlign: 'center',
-    paddingTop: 20,
-  },
+ 
   textMsg:{
     color: 'red',
-    fontWeight: 800,
+    // fontWeight: 800,
     fontSize: 15, 
     padding:80,
     textAlign:'center'
   },
-  input: {
-    color: 'white',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderRadius: 6,
-    padding: 10,
-  },
-  inputText: {
-    fontSize: 18,
-    paddingTop: 20,
-    fontWeight: 400,
-    marginLeft: 15,
-  },
+ 
   Btn: {
     padding: 10,
     backgroundColor: '#3F51B5',
@@ -159,15 +131,6 @@ const styles = StyleSheet.create({
   btnView: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-  },
-  icon: {
-    fontSize: 19,
-  },
-  btnTextStyle: {
-    color: '#ffffff',
-    fontSize: 12,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-  },
+  }
 });
 export default Pending;

@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 function WelcomePage({ navigation }) {
   useEffect(() => {
@@ -9,36 +9,20 @@ function WelcomePage({ navigation }) {
     }, 3000);
   }, []);
   return (
-    <View
-      style={{
-        backgroundColor: 'purple',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'end',
-        paddingBottom: 100,
-      }}
-    >
+    <View style={styles.container}>
       <Text style={styles.texts}>Manage your daily tasks.</Text>
-
-      
     </View>
   );
 }
 export default WelcomePage;
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#8f22cb',
-    marginTop: 40,
-    paddingVertical: 8,
-    width: 100,
-    borderRadius: 35,
-  },
-  btnTextStyle: {
-    color: '#ffffff',
-    fontSize: 19,
-    textTransform: 'uppercase',
-    textAlign: 'center',
+  container:{
+    backgroundColor: 'purple',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'end',
+    paddingBottom: 100,
   },
   texts: {
     color: 'white',

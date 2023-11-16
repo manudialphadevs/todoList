@@ -7,7 +7,7 @@ const NewTask = ({ navigation }) => {
   const [Title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
   const [DueDate, setDueDate] = useState('');
-  const [Status, setStatus] = useState(true);
+  const [Status] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -21,12 +21,6 @@ const NewTask = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
-    const newTask = {  
-      title: Title,
-      description: Description,
-      dueDate: DueDate,
-      status: Status,
-    };
     tasks.push({
       title: Title,
       Description: Description,
@@ -43,9 +37,6 @@ const NewTask = ({ navigation }) => {
     setDueDate('');
   };
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
@@ -64,7 +55,7 @@ const NewTask = ({ navigation }) => {
       <Text style={styles.inputText}>Description:</Text>
       <TextInput style={styles.input} value={Description} onChangeText={text => setDescription(text)} placeholder="Enter Description" />
       <Text style={styles.inputText}>DueDate:</Text>
-      <TextInput style={styles.input} value={DueDate} onChangeText={number => setDueDate(number)} placeholder="dd/mm/yyyy" />
+      {/* <TextInput style={styles.input} value={DueDate} onChangeText={number => setDueDate(number)} placeholder="dd/mm/yyyy" /> */}
        <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
@@ -94,7 +85,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 25,
-    fontWeight: 700,
+    // fontWeight: 700,
     textAlign: 'center',
     paddingTop: 20,
   },
@@ -108,7 +99,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 18,
     paddingTop: 20,
-    fontWeight: 400,
+    // fontWeight: 400,
     marginLeft: 15,
   },
   Btn: {
