@@ -1,13 +1,18 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Pending from './Pending';
 import Completed from './Completed';
 import Overdue from './Overdue';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator({
+  
+});
 
 function TabNavigator({ navigation }) {
+  useEffect(() => {
+    // do something
+ }, [navigation]);
   return (
     <>
       <Tab.Navigator>
@@ -31,7 +36,7 @@ const styles = StyleSheet.create({
   },
   btnTextStyle: {
     color: '#ffffff',
-    fontSize: 19,
+    fontSize: 12,
     textTransform: 'uppercase',
     textAlign: 'center',
   },
