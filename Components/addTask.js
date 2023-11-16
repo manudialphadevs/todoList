@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const NewTask = ({ navigation }) => {
   const [Title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
   const [DueDate, setDueDate] = useState('');
   const [Status, setStatus] = useState(true);
   const [tasks, setTasks] = useState([]);
-
-  const [date, setDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const saveTasksToStorage = async () => {
+
     try {
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
     } catch (error) {
       console.error('Error saving tasks: ', error);
-    }
-  };
-
-  const onChange = ({ type }, selectedDate) => {
-    if (type == 'set') {
-      const currentDate = selectedDate;
-      setDate(currentDate);
     }
   };
 
@@ -48,6 +42,19 @@ const NewTask = ({ navigation }) => {
     setDescription('');
     setDueDate('');
   };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Add Task</Text>
@@ -58,9 +65,12 @@ const NewTask = ({ navigation }) => {
       <TextInput style={styles.input} value={Description} onChangeText={text => setDescription(text)} placeholder="Enter Description" />
       <Text style={styles.inputText}>DueDate:</Text>
       <TextInput style={styles.input} value={DueDate} onChangeText={number => setDueDate(number)} placeholder="dd/mm/yyyy" />
-      
-
-      <DateTimePicker mode="date" display="spinner" value={date} onChange={onChange} />
+       <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
 
       <View style={styles.btnView}>
         <TouchableOpacity style={styles.Btn} onPress={handleSubmit}>

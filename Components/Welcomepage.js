@@ -39,11 +39,9 @@ const styles = StyleSheet.create({
     fontSize: 19,
     textTransform: 'uppercase',
     textAlign: 'center',
-    fontFamily: 'Quicksand-Medium',
   },
   texts: {
     color: 'white',
     fontSize: 30,
-    fontFamily: 'Quicksand-Medium',
   },
 });

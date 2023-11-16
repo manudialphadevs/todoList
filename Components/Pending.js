@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import registerNNPushToken from 'native-notify';
 
 const Pending = () => {
   const [tasks, setTasks] = useState([]);
@@ -50,7 +49,7 @@ const Pending = () => {
     AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
     // Assuming 'status' represents the completion status
     setTasks(updatedTasks);
-    registerNNPushToken(14853, '0jPGABU9DkdPM1Zoi1vhqx');
+    // registerNNPushToken(14853, '0jPGABU9DkdPM1Zoi1vhqx');
   };
   console.log(filteredTasks);
 
