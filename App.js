@@ -21,6 +21,7 @@ export default function App() {
           <Stack.Screen name="newTask" component={newTask} />
           <Stack.Screen name="Pending" component={Pending} />
           <Stack.Screen name="Completed" component={Completed} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </>

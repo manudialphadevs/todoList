@@ -15,7 +15,8 @@ const Pending = () => {
 
   const onRefresh = useCallback(() => {
     setIsRefreshing(true);
-    wait(2000).then(() => setIsRefreshing(false));
+    retrieveTasksFromStorage();
+
   }, []);
 
   useEffect(() => {
@@ -26,12 +27,22 @@ const Pending = () => {
     retrieveTasksFromStorage();
   }, [filteredTasks]);
 
+  const emptyComponent = () => {
+    return (
+      <View style={{flex: 1}}>
+        <Text style={styles.titleStyle}>No items to display. Please press “Add” to add new items</Text>
+      </View>
+    );
+  };
+
   const retrieveTasksFromStorage = async () => {
     try {
       const storedTasks = await AsyncStorage.getItem('tasks');
       if (storedTasks !== null) {
         setTasks(JSON.parse(storedTasks));
+        console.log("jsonData",tasks)
       }
+      setIsRefreshing(false)
     } catch (error) {
       console.error('Error retrieving tasks: ', error);
     }
@@ -57,20 +68,16 @@ const Pending = () => {
     } catch (e) {
       // remove error
     }
-    console.log('Done.');
   };
   return (
     <>
       <View style={{ alignItems: 'center' }}>
-        <Text >today:{currentDate}</Text>
-        {filteredTasks.length === 0 ? 
-        <Text style={styles.textMsg}>No items to display. Please press “Add” to add new items.”</Text> 
-        : 
         <FlatList
           keyExtractor={item => item.Description}
           data={filteredTasks}
           refreshing={isRefreshing}
           onRefresh={onRefresh}
+        ListEmptyComponent={emptyComponent}
           renderItem={({ item, index }) => (
             <View style={styles.tab}>
               <View>
@@ -92,7 +99,7 @@ const Pending = () => {
             </View>
           )}
         />
-          }
+          
       </View>
     </>
   );

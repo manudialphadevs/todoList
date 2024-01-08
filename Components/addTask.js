@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Button,View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import registerNNPushToken from 'native-notify';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const NewTask = ({ navigation }) => {
   const [Title, setTitle] = useState('');
@@ -10,11 +11,18 @@ const NewTask = ({ navigation }) => {
   const [Status] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
+  registerNNPushToken(14853, '0jPGABU9DkdPM1Zoi1vhqx');
   const saveTasksToStorage = async () => {
-
     try {
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      let menuItems = localStorage.getItem("tasks") || '[]';
+      menuItems = JSON.parse(menuItems); 
+      menuItems.push(tasks);
+      console.log("menuitems",menuItems)
+      AsyncStorage.setItem("tasks", JSON.stringify(menuItems));
+      // const jdata=JSON.stringify(tasks);
+      // console.log("jdata:",jdata)
+      // await AsyncStorage.setItem('keys', jdata);
+      // console.log(AsyncStorage.getItem())
     } catch (error) {
       console.error('Error saving tasks: ', error);
     }
@@ -27,9 +35,14 @@ const NewTask = ({ navigation }) => {
       dueDate: DueDate,
       status: Status,
     });
-    handleCancel();
+    console.log("task:",tasks);
+
+    handleCancel()
     saveTasksToStorage();
-    console.log(tasks)
+    console.log("task:",tasks);
+    console.log( JSON.stringify(tasks))
+    
+
   };
   const handleCancel = () => {
     setTitle('');
@@ -38,14 +51,20 @@ const NewTask = ({ navigation }) => {
   };
 
 
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
 
   const handleConfirm = (date) => {
     console.warn("A date has been picked: ", date);
+    setDueDate(date);
     hideDatePicker();
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Add Task</Text>
@@ -55,14 +74,16 @@ const NewTask = ({ navigation }) => {
       <Text style={styles.inputText}>Description:</Text>
       <TextInput style={styles.input} value={Description} onChangeText={text => setDescription(text)} placeholder="Enter Description" />
       <Text style={styles.inputText}>DueDate:</Text>
-      {/* <TextInput style={styles.input} value={DueDate} onChangeText={number => setDueDate(number)} placeholder="dd/mm/yyyy" /> */}
-       <DateTimePickerModal
+      <TouchableOpacity style={styles.datebtn} onPress={showDatePicker}>
+          <Text style={{color:'white'}}>Due Date</Text>
+        </TouchableOpacity>
+      <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
-
+      
       <View style={styles.btnView}>
         <TouchableOpacity style={styles.Btn} onPress={handleSubmit}>
           <Text style={styles.btnTextStyle}>Confirm</Text>
@@ -72,7 +93,7 @@ const NewTask = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}>
-        <Text style={styles.btnTextStyle}>Tab Navigator</Text>
+        <Text style={{}}>Tab Navigator</Text>
       </TouchableOpacity>
     </View>
   );
@@ -90,8 +111,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   input: {
+    backgroundColor:'white',
     height: 40,
     margin: 12,
+    border: '#ab25ab',
     borderWidth: 1,
     borderRadius: 6,
     padding: 10,
@@ -104,13 +127,13 @@ const styles = StyleSheet.create({
   },
   Btn: {
     padding: 10,
-    backgroundColor: '#8f22cb',
+    backgroundColor: '#083c33',
     marginTop: 40,
     width: 100,
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#8f22cb',
+    backgroundColor: '#083c33',
     marginTop: 40,
     paddingVertical: 8,
   },
@@ -121,6 +144,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
      
   },
+  datebtn:{
+    marginLeft: 115,
+    padding: 10,
+    backgroundColor: 'grey',
+    marginTop: 40,
+    width: 100,
+    borderRadius:5
+    },
   btnView: {
     marginHorizontal: 25,
     paddingRight: 15,

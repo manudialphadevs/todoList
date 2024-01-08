@@ -29,3 +29,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
+
+// const saveTasksToStorage = async () => {
+//   try {
+//     let menuItems = localStorage.getItem("tasks") || '[]';
+//     menuItems = JSON.parse(menuItems); 
+//     menuItems.push(tasks);
+//       AsyncStorage.setItem("tasks", JSON.stringify(menuItems));
+//     console.log(JSON.stringify(AsyncStorage.getItem('tasks')))
+//   } catch (error) {
+//     console.error('Error saving tasks: ', error);
+//   }
